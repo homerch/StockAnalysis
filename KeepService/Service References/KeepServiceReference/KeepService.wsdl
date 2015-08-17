@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ExportCSV">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="receiveDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExportCSVResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExportCSVResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DailyRateTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="receiveDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DailyRateTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DailyRateTaskResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WeeklyRateTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="receiveDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WeeklyRateTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WeeklyRateTaskResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ExportCSVSoapIn">
+    <wsdl:part name="parameters" element="tns:ExportCSV" />
+  </wsdl:message>
+  <wsdl:message name="ExportCSVSoapOut">
+    <wsdl:part name="parameters" element="tns:ExportCSVResponse" />
+  </wsdl:message>
+  <wsdl:message name="DailyRateTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:DailyRateTask" />
+  </wsdl:message>
+  <wsdl:message name="DailyRateTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:DailyRateTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="WeeklyRateTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:WeeklyRateTask" />
+  </wsdl:message>
+  <wsdl:message name="WeeklyRateTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:WeeklyRateTaskResponse" />
+  </wsdl:message>
+  <wsdl:portType name="KeepServiceSoap">
+    <wsdl:operation name="ExportCSV">
+      <wsdl:input message="tns:ExportCSVSoapIn" />
+      <wsdl:output message="tns:ExportCSVSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DailyRateTask">
+      <wsdl:input message="tns:DailyRateTaskSoapIn" />
+      <wsdl:output message="tns:DailyRateTaskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WeeklyRateTask">
+      <wsdl:input message="tns:WeeklyRateTaskSoapIn" />
+      <wsdl:output message="tns:WeeklyRateTaskSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="KeepServiceSoap" type="tns:KeepServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExportCSV">
+      <soap:operation soapAction="http://tempuri.org/ExportCSV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DailyRateTask">
+      <soap:operation soapAction="http://tempuri.org/DailyRateTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WeeklyRateTask">
+      <soap:operation soapAction="http://tempuri.org/WeeklyRateTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="KeepServiceSoap12" type="tns:KeepServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ExportCSV">
+      <soap12:operation soapAction="http://tempuri.org/ExportCSV" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DailyRateTask">
+      <soap12:operation soapAction="http://tempuri.org/DailyRateTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WeeklyRateTask">
+      <soap12:operation soapAction="http://tempuri.org/WeeklyRateTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="KeepService">
+    <wsdl:port name="KeepServiceSoap" binding="tns:KeepServiceSoap">
+      <soap:address location="http://localhost:1963/KeepService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="KeepServiceSoap12" binding="tns:KeepServiceSoap12">
+      <soap12:address location="http://localhost:1963/KeepService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

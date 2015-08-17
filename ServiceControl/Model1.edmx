@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="stockdbaModel.Store" Alias="Self" Provider="System.Data.SQLite" ProviderManifestToken="ISO8601" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="stockdbaModelStoreContainer">
+          <EntitySet Name="Broker" EntityType="stockdbaModel.Store.Broker" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="stockdbaModel.Store.Company" store:Type="Tables" />
+          <EntitySet Name="DailyDetail" EntityType="stockdbaModel.Store.DailyDetail" store:Type="Tables" />
+          <EntitySet Name="DailySummary" EntityType="stockdbaModel.Store.DailySummary" store:Type="Tables" />
+          <EntitySet Name="DailyWork" EntityType="stockdbaModel.Store.DailyWork" store:Type="Tables" />
+          <EntitySet Name="ServiceLog" EntityType="stockdbaModel.Store.ServiceLog" store:Type="Tables" />
+          <AssociationSet Name="FK_DailyDetail_0_0" Association="stockdbaModel.Store.FK_DailyDetail_0_0">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="DailyDetail" EntitySet="DailyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyDetail_1_0" Association="stockdbaModel.Store.FK_DailyDetail_1_0">
+            <End Role="Broker" EntitySet="Broker" />
+            <End Role="DailyDetail" EntitySet="DailyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailySummary_0_0" Association="stockdbaModel.Store.FK_DailySummary_0_0">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="DailySummary" EntitySet="DailySummary" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Broker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="branch" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="stockId" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="bzClass" Type="nvarchar" MaxLength="50" />
+          <Property Name="stockType" Type="nvarchar" MaxLength="50" />
+          <Property Name="initTime" Type="datetime" />
+          <Property Name="updateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DailyDetail">
+          <Key>
+            <PropertyRef Name="receiveDate" />
+            <PropertyRef Name="stockId" />
+            <PropertyRef Name="no" />
+          </Key>
+          <Property Name="receiveDate" Type="datetime" Nullable="false" />
+          <Property Name="stockId" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="no" Type="decimal" Nullable="false" Precision="53" />
+          <Property Name="brokerId" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="value" Type="decimal" Precision="53" />
+          <Property Name="buyVolume" Type="decimal" Precision="53" />
+          <Property Name="sellVolume" Type="decimal" Precision="53" />
+        </EntityType>
+        <EntityType Name="DailySummary">
+          <Key>
+            <PropertyRef Name="receiveDate" />
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="receiveDate" Type="datetime" Nullable="false" />
+          <Property Name="stockId" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="tradeRec" Type="decimal" Precision="53" />
+          <Property Name="tradeAmt" Type="decimal" Precision="53" />
+          <Property Name="tradeQty" Type="decimal" Precision="53" />
+          <Property Name="openPrice" Type="decimal" Precision="53" />
+          <Property Name="highPrice" Type="decimal" Precision="53" />
+          <Property Name="lowPrice" Type="decimal" Precision="53" />
+          <Property Name="lastPrice" Type="decimal" Precision="53" />
+        </EntityType>
+        <EntityType Name="DailyWork">
+          <Key>
+            <PropertyRef Name="receiveDate" />
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="receiveDate" Type="datetime" Nullable="false" />
+          <Property Name="stockId" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="currentPage" Type="integer" />
+          <Property Name="totalPage" Type="integer" />
+          <Property Name="updateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ServiceLog">
+          <Key>
+            <PropertyRef Name="no" />
+          </Key>
+          <Property Name="no" Type="integer" Nullable="false" />
+          <Property Name="updateTime" Type="datetime" />
+          <Property Name="updateLog" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_DailyDetail_0_0">
+          <End Role="Company" Type="stockdbaModel.Store.Company" Multiplicity="1" />
+          <End Role="DailyDetail" Type="stockdbaModel.Store.DailyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="DailyDetail">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyDetail_1_0">
+          <End Role="Broker" Type="stockdbaModel.Store.Broker" Multiplicity="1" />
+          <End Role="DailyDetail" Type="stockdbaModel.Store.DailyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DailyDetail">
+              <PropertyRef Name="brokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailySummary_0_0">
+          <End Role="Company" Type="stockdbaModel.Store.Company" Multiplicity="1" />
+          <End Role="DailySummary" Type="stockdbaModel.Store.DailySummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="DailySummary">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="stockdbaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="stockdbaEntitiesLite" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Broker" EntityType="stockdbaModel.Broker" />
+          <EntitySet Name="Company" EntityType="stockdbaModel.Company" />
+          <EntitySet Name="DailyDetail" EntityType="stockdbaModel.DailyDetail" />
+          <EntitySet Name="DailySummary" EntityType="stockdbaModel.DailySummary" />
+          <EntitySet Name="DailyWork" EntityType="stockdbaModel.DailyWork" />
+          <EntitySet Name="ServiceLog" EntityType="stockdbaModel.ServiceLog" />
+          <AssociationSet Name="FK_DailyDetail_1_0" Association="stockdbaModel.FK_DailyDetail_1_0">
+            <End Role="Broker" EntitySet="Broker" />
+            <End Role="DailyDetail" EntitySet="DailyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailyDetail_0_0" Association="stockdbaModel.FK_DailyDetail_0_0">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="DailyDetail" EntitySet="DailyDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DailySummary_0_0" Association="stockdbaModel.FK_DailySummary_0_0">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="DailySummary" EntitySet="DailySummary" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Broker">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="branch" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="DailyDetail" Relationship="stockdbaModel.FK_DailyDetail_1_0" FromRole="Broker" ToRole="DailyDetail" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="stockId" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="name" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="bzClass" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="stockType" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="initTime" Type="DateTime" />
+          <Property Name="updateTime" Type="DateTime" />
+          <NavigationProperty Name="DailyDetail" Relationship="stockdbaModel.FK_DailyDetail_0_0" FromRole="Company" ToRole="DailyDetail" />
+          <NavigationProperty Name="DailySummary" Relationship="stockdbaModel.FK_DailySummary_0_0" FromRole="Company" ToRole="DailySummary" />
+        </EntityType>
+        <EntityType Name="DailyDetail">
+          <Key>
+            <PropertyRef Name="receiveDate" />
+            <PropertyRef Name="stockId" />
+            <PropertyRef Name="no" />
+          </Key>
+          <Property Name="receiveDate" Type="DateTime" Nullable="false" />
+          <Property Name="stockId" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="no" Type="Decimal" Nullable="false" Precision="53" Scale="0" />
+          <Property Name="brokerId" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="value" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="buyVolume" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="sellVolume" Type="Decimal" Precision="53" Scale="0" />
+          <NavigationProperty Name="Broker" Relationship="stockdbaModel.FK_DailyDetail_1_0" FromRole="DailyDetail" ToRole="Broker" />
+          <NavigationProperty Name="Company" Relationship="stockdbaModel.FK_DailyDetail_0_0" FromRole="DailyDetail" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="DailySummary">
+          <Key>
+            <PropertyRef Name="receiveDate" />
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="receiveDate" Type="DateTime" Nullable="false" />
+          <Property Name="stockId" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="tradeRec" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="tradeAmt" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="tradeQty" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="openPrice" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="highPrice" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="lowPrice" Type="Decimal" Precision="53" Scale="0" />
+          <Property Name="lastPrice" Type="Decimal" Precision="53" Scale="0" />
+          <NavigationProperty Name="Company" Relationship="stockdbaModel.FK_DailySummary_0_0" FromRole="DailySummary" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="DailyWork">
+          <Key>
+            <PropertyRef Name="receiveDate" />
+            <PropertyRef Name="stockId" />
+          </Key>
+          <Property Name="receiveDate" Type="DateTime" Nullable="false" />
+          <Property Name="stockId" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="currentPage" Type="Int64" />
+          <Property Name="totalPage" Type="Int64" />
+          <Property Name="updateTime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="ServiceLog">
+          <Key>
+            <PropertyRef Name="no" />
+          </Key>
+          <Property Name="no" Type="Int64" Nullable="false" />
+          <Property Name="updateTime" Type="DateTime" />
+          <Property Name="updateLog" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_DailyDetail_1_0">
+          <End Role="Broker" Type="stockdbaModel.Broker" Multiplicity="1" />
+          <End Role="DailyDetail" Type="stockdbaModel.DailyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Broker">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DailyDetail">
+              <PropertyRef Name="brokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailyDetail_0_0">
+          <End Role="Company" Type="stockdbaModel.Company" Multiplicity="1" />
+          <End Role="DailyDetail" Type="stockdbaModel.DailyDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="DailyDetail">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DailySummary_0_0">
+          <End Role="Company" Type="stockdbaModel.Company" Multiplicity="1" />
+          <End Role="DailySummary" Type="stockdbaModel.DailySummary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="stockId" />
+            </Principal>
+            <Dependent Role="DailySummary">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="stockdbaModelStoreContainer" CdmEntityContainer="stockdbaEntitiesLite">
+          <EntitySetMapping Name="Broker">
+            <EntityTypeMapping TypeName="stockdbaModel.Broker">
+              <MappingFragment StoreEntitySet="Broker">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="branch" ColumnName="branch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="stockdbaModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="bzClass" ColumnName="bzClass" />
+                <ScalarProperty Name="stockType" ColumnName="stockType" />
+                <ScalarProperty Name="initTime" ColumnName="initTime" />
+                <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyDetail">
+            <EntityTypeMapping TypeName="stockdbaModel.DailyDetail">
+              <MappingFragment StoreEntitySet="DailyDetail">
+                <ScalarProperty Name="receiveDate" ColumnName="receiveDate" />
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="no" ColumnName="no" />
+                <ScalarProperty Name="brokerId" ColumnName="brokerId" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="buyVolume" ColumnName="buyVolume" />
+                <ScalarProperty Name="sellVolume" ColumnName="sellVolume" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailySummary">
+            <EntityTypeMapping TypeName="stockdbaModel.DailySummary">
+              <MappingFragment StoreEntitySet="DailySummary">
+                <ScalarProperty Name="receiveDate" ColumnName="receiveDate" />
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="tradeRec" ColumnName="tradeRec" />
+                <ScalarProperty Name="tradeAmt" ColumnName="tradeAmt" />
+                <ScalarProperty Name="tradeQty" ColumnName="tradeQty" />
+                <ScalarProperty Name="openPrice" ColumnName="openPrice" />
+                <ScalarProperty Name="highPrice" ColumnName="highPrice" />
+                <ScalarProperty Name="lowPrice" ColumnName="lowPrice" />
+                <ScalarProperty Name="lastPrice" ColumnName="lastPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DailyWork">
+            <EntityTypeMapping TypeName="stockdbaModel.DailyWork">
+              <MappingFragment StoreEntitySet="DailyWork">
+                <ScalarProperty Name="receiveDate" ColumnName="receiveDate" />
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="currentPage" ColumnName="currentPage" />
+                <ScalarProperty Name="totalPage" ColumnName="totalPage" />
+                <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceLog">
+            <EntityTypeMapping TypeName="stockdbaModel.ServiceLog">
+              <MappingFragment StoreEntitySet="ServiceLog">
+                <ScalarProperty Name="no" ColumnName="no" />
+                <ScalarProperty Name="updateTime" ColumnName="updateTime" />
+                <ScalarProperty Name="updateLog" ColumnName="updateLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

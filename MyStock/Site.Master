@@ -1,0 +1,99 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="zh">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - CoCoIn.info</title>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+    <meta name="description" content="台股籌碼分析，統計上市個股及證券商每日買賣超狀況，以利投資">
+</head>
+<body>
+    <form itemscope itemtype="http://schema.org/Article" runat="server">
+        <ajaxToolkit:ToolkitScriptManager runat="server">
+            <Scripts>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="jquery.ui.combined" />
+                <asp:ScriptReference Name="WebForms.js" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </ajaxToolkit:ToolkitScriptManager>
+        <header>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p class="site-title">
+                        <a runat="server" href="~/"></a>
+                    </p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        <asp:LoginView runat="server" ViewStateMode="Disabled" Visible="false">
+                            <AnonymousTemplate>
+                                <ul>
+                                    <li><a id="registerLink" runat="server" href="~/Account/Register.aspx">註冊</a></li>
+                                    <li><a id="loginLink" runat="server" href="~/Account/Login.aspx">登入</a></li>
+                                </ul>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <p>
+                                    Hello, <a runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
+                                        <asp:LoginName runat="server" CssClass="username" />
+                                    </a>!
+                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="登出" LogoutPageUrl="~/" />
+                                </p>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li><a runat="server" href="~/">首頁</a></li>
+                            <li><a runat="server" href="~/Analysis/Lab_Branch_Lite.aspx">個股</a></li>
+                            <li><a runat="server" href="~/Analysis/Broker_Branch_Lite.aspx">證券商</a></li>
+                            <li><a runat="server" href="~/Analysis/RateRank.aspx">籌碼集中度</a></li>
+                            <li><a runat="server" href="~/Analysis/DataQuery.aspx">搜尋</a></li>
+                            <li><a runat="server" href="~/About.aspx">關於</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div id="body">
+            <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+            <section class="content-wrapper main-content clear-fix">
+                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>
+                        &copy; <%: DateTime.Now.Year %> - <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+                            <span itemprop="name">CoCoIn.info</span></span>
+                    </p>
+                </div>
+                <div class="float-right">
+                    <p>
+                        <%--<iframe width="620" scrolling="no" height="70" frameborder="0" allowfullscreen="" src="http://cocoin.info/stock/Donate.aspx"></iframe>--%>
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </form>
+</body>
+</html>

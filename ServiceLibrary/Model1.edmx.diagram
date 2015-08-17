@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2a99b1dc16054b438460d0d7b70a013b" Name="圖表1">
+        <EntityTypeShape EntityType="stockdbaModel.Broker" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.Company" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.DailyDetail" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.DailyRate" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.DailySettlement" Width="1.5" PointX="5.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.DailySummary" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.DailyWork" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.ServiceLog" Width="1.5" PointX="7.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="stockdbaModel.WeeklyRate" Width="1.5" PointX="5.75" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="stockdbaModel.FK_DailyDetail_Broker" ManuallyRouted="false" />
+        <AssociationConnector Association="stockdbaModel.FK_DailyDetail_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="stockdbaModel.FK_DaliySummary_Company" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="stockdbaModel.TotalRate" Width="1.5" PointX="8.4613397961768051" PointY="20.893905962302306" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
